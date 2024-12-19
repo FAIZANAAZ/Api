@@ -1,0 +1,75 @@
+CRUD = CREATE READ UPDATE DELETE
+	3 TRHA KE TOOL KO HM API KE LIYE USE KR SKTY HEN
+1)THANDER CLIENT
+2)INSOMNIA
+3)POSTMAN
+
+////////////////////////////////////////////////$
+GET = READ "isy hm api ko read kr skty hen bs or koch nhi"
+POST = CREATE "isy hm api ko create kr skty hen bs or koch nhi"
+PUT = UPDATE "isy hm api ko update kr skty hen bs or koch nhi"
+DELETE = DELETE "isy hm api ko delete kr skty hen bs or koch nhi"
+PATCH = PATCH (UPDATE PARTIAL) "isy hm api ko partial update kr skty hen bs or koch nhi"
+
+////////////////////////////////////////////////$
+
+PUT aur PATCH APIs 
+PUT API (Full Update)
+Definition: PUT ka use poore resource ko replace karne ke liye hota hai.
+Key Points:
+Full Replacement: Purana data completely overwrite hota hai.
+Jo Fields Missing Hain: Agar aapne kuch fields nahi di hain, to unki value null ya default ho jati hai.
+Use Case: Jab poora resource update karna zaroori ho.
+
+example:
+{
+  "name": "Ali",
+  "age": 25,
+  "city": "Karachi"
+}
+Agar aap PUT request bhejte hain sirf ek field update karne ke liye, jaise:
+
+{
+  "name": "Ahmed"
+}
+To result hoga:
+
+{
+  "name": "Ahmed",
+  "age": null,
+  "city": null
+}
+Yani, jo fields specify nahi ki gayi, woh null ya default value ban jati hain. Isliye PUT poora resource overwrite kar deta hai.
+
+*************************
+
+PATCH API (Partial Update)
+
+Definition: PATCH ka use resource ke sirf kuch parts (fields) ko update karne ke liye hota hai.
+Key Points:
+Partial Update: Sirf wahi fields update hoti hain jo request mein mention ki gayi hoti hain.
+Baaki Fields Safe Hain: Jo fields mention nahi ki gayi, woh waise hi rehti hain.
+Use Case: Jab sirf kuch specific fields ko update karna ho.
+
+example:
+
+Agar wahi record update karte hain PATCH ke through:
+{
+  "name": "Ali",
+  "age": 25,
+  "city": "Karachi"
+}
+or ap PATCH request bhejte hain sirf ek field update karne ke liye, jaise:
+
+{
+  "name": "Ahmed"
+}
+To result hoga:
+
+{
+  "name": "Ahmed",
+  "age": 25,
+  "city": "Karachi"
+}
+Yani, sirf 'name' update hua aur baaki fields ase hi hain.
+
