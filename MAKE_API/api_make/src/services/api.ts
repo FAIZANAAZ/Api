@@ -1,20 +1,36 @@
+"use server"
+export const api_get = async () => {
+  const res = await fetch("http://localhost:3000/api",{
+    method:"GET"
+  })
+  if (!res.ok) {
 
-// const res = await fetch("http://localhost:3000/api/DATA",{
-//   method:"GET"
-// })
+    return 'Failed to fetch BooksData'
+      
+  }
+  const data =await  res.json ()
+  // console.log(data);
+  return data
 
-// const data =await  res.json ()
-// console.log(data);
-export const api_post = async () => {
+}
+
+
+export const api_post  = async (name:string,age:number,gender:string,id:number) => {
     
 
 
-const resPO = await fetch ("http://localhost:3000/api/DATA",{
-  method:"POST"
+const resPO = await fetch ("http://localhost:3000/api/user",{
+  method:"POST",
+  body:JSON.stringify({
+    "name": name,
+    "age":age,
+"gender":gender,
+"id":id
 })
-if (!resPO.ok) {
+})
+if ( resPO.status!==500) {
 
-    return 'Failed to fetch BooksData'
+    return 'Failed to fetch data'
       
   }
 const datapo =await  resPO.json ()
@@ -52,7 +68,7 @@ export const api_del = async () => {
 
     }
 
-    export const api_put = async () => {
+    export const api_put = async (name: string, age: number, gender: string, id: number) => {
     
 
 

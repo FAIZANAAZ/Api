@@ -1,22 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 
-let data=[]
+let data = [];
 
 export function GET() {
-    
-    return NextResponse.json([
-        { "name": "Faiza Naaz", "age": 30, "gender": "Female" },
-        { "name": "Taha", "age": 25, "gender": "Male" },
-        { "name": "Sara Ahmed", "age": 22, "gender": "Female" },
-        { "name": "Hamza Sheikh", "age": 28, "gender": "Male" },
-        { "name": "Ayesha Tariq", "age": 27, "gender": "Female" },
-        { "name": "Zain Malik", "age": 24, "gender": "Male" },
-        { "name": "Hina Qureshi", "age": 26, "gender": "Female" },
-        { "name": "Usman Ali", "age": 29, "gender": "Male" },
-        { "name": "Nida Aslam", "age": 23, "gender": "Female" },
-        { "name": "Fahad Jamil", "age": 31, "gender": "Male" }
-      ]
-      )
+  return NextResponse.json([
+    { id: 1, name: "Faiza Naaz", age: 30, gender: "Female" },
+    { id: 2, name: "Taha", age: 25, gender: "Male" },
+    { id: 3, name: "Sara Ahmed", age: 22, gender: "Female" },
+    { id: 4, name: "Hamza Sheikh", age: 28, gender: "Male" },
+    { id: 5, name: "Ayesha Tariq", age: 27, gender: "Female" },
+    { id: 6, name: "Zain Malik", age: 24, gender: "Male" },
+    { id: 7, name: "Hina Qureshi", age: 26, gender: "Female" },
+    { id: 8, name: "Usman Ali", age: 29, gender: "Male" },
+    { id: 9, name: "Nida Aslam", age: 23, gender: "Female" },
+    { id: 10, name: "Fahad Jamil", age: 31, gender: "Male" }
+  ]);
 }
-
-
