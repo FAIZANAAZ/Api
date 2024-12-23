@@ -1,124 +1,119 @@
 "use client";
+
 import { api_get } from "@/services/api";
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
+
+interface User {
+  id: number;
+  name: string;
+  age: number;
+  gender: string;
+}
 
 const UseApi = () => {
-  const [data, setData] = React.useState<
-    { id: number; name: string; age: number; gender: string }[]
-  >([]);
+  const [dataStore, setDataStore] = useState<User[]>([]);
+
+  const getLocalStorageData = (): User[] => {
+    const storedData = localStorage.getItem("users");
+    return storedData ? JSON.parse(storedData) : [];
+  };
+
+  const saveToLocalStorage = (data: User[]) => {
+    localStorage.setItem("users", JSON.stringify(data));
+  };
+
+  const mergeAndDeduplicateData = (oldData: User[], newData: User[]): User[] => {
+    const mergedData = [...oldData, ...newData];
+    return mergedData.filter((item, index, self) =>
+      index === self.findIndex((t) => t.id === item.id)
+    );
+  };
+
+  const fetchUserData = async () => {
+    try {
+      const response = await api_get();
+      setDataStore((prevData) => {
+        const updatedData = mergeAndDeduplicateData(prevData, response);
+        saveToLocalStorage(updatedData);
+        return updatedData;
+      });
+    } catch (error) {
+      console.error("Failed to fetch data from API", error);
+    }
+  };
+
+  const retrieveLocalStorageData = () => {
+    const localData = getLocalStorageData();
+    setDataStore((prevData) => mergeAndDeduplicateData(prevData, localData));
+  };
+
+  const addUserFromInput = () => {
+    const newUser = {
+      id: Number(localStorage.getItem("id") || 0),
+      name: localStorage.getItem("name") || "",
+      age: Number(localStorage.getItem("age") || 0),
+      gender: localStorage.getItem("gender") || "",
+    };
+
+    if (newUser.id && newUser.name && newUser.age && newUser.gender) {
+      setDataStore((prevData) => {
+        const updatedData = mergeAndDeduplicateData(prevData, [newUser]);
+        saveToLocalStorage(updatedData);
+        return updatedData;
+      });
+    }
+  };
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      const response = await api_get();
-      setData(response);
-    };
-
+    retrieveLocalStorageData();
     fetchUserData();
+    // Listen for storage events to update data when it changes in another tab
+    window.addEventListener('storage', retrieveLocalStorageData);
+    return () => {
+      window.removeEventListener('storage', retrieveLocalStorageData);
+    };
   }, []);
 
-  // Retrieve user data from localStorage
-  const userName = localStorage.getItem("name");
-  const userAge = localStorage.getItem("age");
-  const userGender = localStorage.getItem("gender");
-  const userId = localStorage.getItem("id");
-
-  // Add localStorage data only if it doesn't already exist
-  if (
-    userId !== null &&
-    userName !== null &&
-    userAge !== null &&
-    userGender !== null
-  ) {
-    const userObj = {
-      id: parseInt(userId),
-      name: userName,
-      age: parseInt(userAge),
-      gender: userGender,
-    };
-
-    // Check if the userObj already exists in the data array
-    const exists = data.some((user) => user.id === userObj.id);
-    if (!exists) {
-      setData((prevData) => [...prevData, userObj]);
-    }
-  }else{
-    alert("data not found");
-  }
+  useEffect(() => {
+    // Check for new user data whenever the component re-renders
+    addUserFromInput();
+  });
 
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
-      <h1
-        style={{
-          textAlign: "center",
-          marginBottom: "20px",
-          color: "#4A90E2",
-        }}
-      >
+    <div className="p-5 font-sans">
+      <h1 className="text-center mb-5 text-2xl font-bold text-blue-600">
         User Data Table
       </h1>
-      <table
-        style={{
-          width: "100%",
-          borderCollapse: "collapse",
-          backgroundColor: "#f9f9f9",
-          boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.1)",
-        }}
-      >
-        <thead>
-          <tr
-            style={{
-              backgroundColor: "#4A90E2",
-              color: "white",
-              textAlign: "left",
-            }}
-          >
-            <th style={{ padding: "10px", border: "1px solid #ddd" }}>ID</th>
-            <th style={{ padding: "10px", border: "1px solid #ddd" }}>Name</th>
-            <th style={{ padding: "10px", border: "1px solid #ddd" }}>Age</th>
-            <th style={{ padding: "10px", border: "1px solid #ddd" }}>Gender</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.length > 0 ? (
-            data.map((user, index) => (
-              <tr
-                key={index}
-                style={{
-                  textAlign: "left",
-                  backgroundColor:
-                    index % 2 === 0 ? "#f2f2f2" : "white",
-                }}
-              >
-                <td style={{ padding: "10px", border: "1px solid #ddd" }}>
-                  {user.id}
-                </td>
-                <td style={{ padding: "10px", border: "1px solid #ddd" }}>
-                  {user.name}
-                </td>
-                <td style={{ padding: "10px", border: "1px solid #ddd" }}>
-                  {user.age}
-                </td>
-                <td style={{ padding: "10px", border: "1px solid #ddd" }}>
-                  {user.gender}
+      <div className="overflow-x-auto">
+        <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+          <thead className="bg-blue-500 text-white">
+            <tr>
+              <th className="py-3 px-4 text-left">ID</th>
+              <th className="py-3 px-4 text-left">Name</th>
+              <th className="py-3 px-4 text-left">Age</th>
+              <th className="py-3 px-4 text-left">Gender</th>
+            </tr>
+          </thead>
+          <tbody>
+            {dataStore.length > 0 ? (
+              dataStore.map((user, index) => (
+                <tr key={user.id} className={index % 2 === 0 ? "bg-gray-50" : "bg-white"}>
+                  <td className="py-3 px-4 border-b">{user.id}</td>
+                  <td className="py-3 px-4 border-b">{user.name}</td>
+                  <td className="py-3 px-4 border-b">{user.age}</td>
+                  <td className="py-3 px-4 border-b">{user.gender}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={4} className="py-3 px-4 text-center border-b">
+                  No Data Available
                 </td>
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td
-                colSpan={4}
-                style={{
-                  textAlign: "center",
-                  padding: "10px",
-                  border: "1px solid #ddd",
-                }}
-              >
-                No Data Available
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
