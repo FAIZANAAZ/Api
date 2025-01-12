@@ -1,0 +1,30 @@
+
+Sign Up
+Sabse pehle, system me Sign Up karein aur apna account banayen.
+
+Project Create Karna
++ button par click karein aur wahan apne project ka naam aur endpoint ka detail enter karein.
+
+New Resource Create Karna
+New Resources par click karein aur wahan apna naya resource create karein.
+
+Resource Ka Naam Dena
+Apne resource ka naam specify karein, jo cheez aap banana chahte hain, jaise: Product Data.
+
+Schema Banana
+Resource ke neeche, Name aur Type specify karke schema design karein. Phir "Create" button par click karke schema ko finalize karein.
+
+Initial Status
+Initially, resource ka data count 0 hoga. Aap is resource ko Edit aur Delete bhi kar sakte hain.
+
+Scroll Bar Ki Tarah Functionality
+Resource ke data ke liye ek scroll bar ki tarah interface hoga jisme aap Data Number select karenge jitne entries ki zarurat hai.
+
+Data View Aur Create Karna
+Data section me jaa kar, aap available data dekh bhi sakte hain aur naya data create bhi kar sakte hain. Naya data banane ka faida ye hoga ke aap kisi product ke URL me Image ka link directly de sakte hain. Agar URL specify na kiya gaya, to system default names jaise "Image 1", "Image 2" dega.
+
+API Endpoint Access Karna
+API endpoint ke neeche diya gaya link par click karein. Ye link aapko ek JSON format me data open karke dikhayega ek naye tab me.
+Wahan se aap URL ko copy kar sakte hain aur apne project me use kar sakte hain.
+
+fetch krky use krny ka trika bhi page,tsx me he

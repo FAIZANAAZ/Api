@@ -1,0 +1,54 @@
+
+(1)OPEN SHIPENINE WEB (https://www.shipengine.com/) and sign up
+(2)email ke zariye varify email krengy phir wo login page pr jany ka khy ga email ke ander hi login pr krengy or wha detail enter krengy name or paswaord
+(3)payment method free waly card pr click krna he
+(4)click next ->select plan  click i conform cheq ✅ than click on enable later not enable
+
+<!-- test krny ka jo sendbox hota he osmy 31 din tk free hota he -->
+
+(5)ak sms ayga gotit pr click krna he
+(6)click ->left corner on api keys 
+copy id
+<!-- ye send box ki api khlati he or yad rkhna he ke osky sah (Test_) sy start hori ho to confirm ho jata he hn ye free hi he-->
+        <!-- TO CREATE -->
+(7)open vs code and than open thander_client 
+     1-thander_client -> method get request 
+     and past https://api.shipengine.com/v1/carriers
+     click Header of thander client:
+     <!-- accetp or useragent  ko cros sy htadengy-->
+         <!-- key   :value -->
+     {API-Key : enter api key (id)
+     Content-Type : application/json}  
+
+    click on send button to wo 200 pr succeess ka sms dega or sath hi ak hi data dega wohi api ka data hoga
+
+            TO FETCH  <!--(yani jo api bnai he osko dekhna )    -->
+(8)  open gain new thander-client 
+      Method post request
+      enter url 
+      URL:https://api.shipengine.com/v1/labels
+       click Header of thander client:
+     <!-- accetp or useragent  ko cros sy htadengy-->
+         <!-- key   :value -->
+     {API-Key : enter api key (id)
+     Content-Type : application/json}
+
+     click on body tab of thander client and enter
+     
+     body ka content hm othaygy website sy 
+     open in google tab search  create a snipeng lable (https://www.shipengine.com/docs/labels/create-a-label/)
+     Request  body pr jaengy or copy krengy wha sy body ka content or thander me jakr past krdengy
+
+     or os body me jo carrier_id ki value he osko mita kr jo get request me hmary pas result aya tha osmy bhi ak carrier_id
+     hogi wha sy copy krky post wali body me jo mitai thi past krdengy 
+
+     ISI TRHA SERVICE CODE BHI KRNGY or service code hmary pas ak sy zada hota he to to koi si bhi lga skta he matalb har object ka alag hota he
+
+     or name change krdengy koi bhi likh dengy
+
+    **phir ak response ayga asal result jismy ak data hoga** 
+
+
+**agr dekhna he to result me download labels hoty hen png ya or bhi osko copy krky  google tab me past krky  open krky dekh skte hen**
+
+
