@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 
 const Home = () => {
   const [Card, setCard] = useState([]);
+  
 
   useEffect(() => {
     const fetchProducts = async () => {
