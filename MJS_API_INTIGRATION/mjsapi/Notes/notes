@@ -1,0 +1,22 @@
+// (1)CREATE A SCHEMA (schema thander client me data kis hisab sy ara he osko dekh kr bnay gy)or index me import krwaygy
+// (2)npm  run dev krky confirm krengy schema aya ke nhi 
+// (3)run npm i dotenv
+// (4)run npm i @sanity/client
+// (5)run create token from sanity.io and past env and update sanity/lib/client.ts 
+//           useCdn: false
+// /        token = process.env.SANITY_API_TOKEN;
+// (6)phir mjs ki ile me ha hm api ko rkhengy or bhejengy me jb hm kam krty hen to hm env ki file me jo chizen hoti hen wo hm migrate.mjs me rkhengy
+     
+
+//   const client = createClient({
+//   projectId: 'your-project-id',
+//   dataset: 'production',
+//   useCdn: true,
+//   token: 'your-auth-token',
+// });
+
+// (7)"import-data":"node src/scripts/migration.mjs" add in package.json
+    // src/scripts/migration.mjs iski jga wo path jha file he or os file ka name jo mjs ki file he 
+// (8)run (npm run import-data)    
+
+// (9)phir gquery sy fetch krky use krlengy
